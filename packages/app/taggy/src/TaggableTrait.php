@@ -5,9 +5,12 @@ namespace App\Taggy;
 use App\Taggy\Models\Tag;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
+use App\Taggy\Scopes\TaggableScopesTrait;
 
 trait TaggableTrait
 {
+  use TaggableScopesTrait;
+
   public function tags()
   {
     return $this->morphToMany(Tag::class, 'taggable');
