@@ -167,7 +167,7 @@ return [
          * Package Service Providers...
          */
 
-        //
+        App\Taggy\TaggyServiceProvider::class,
 
         /*
          * Application Service Providers...
