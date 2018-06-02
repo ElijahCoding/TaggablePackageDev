@@ -28,6 +28,13 @@ trait TaggableTrait
     $this->removeTags($this->getWorkableTags($tags));
   }
 
+  public function retag($tags)
+  {
+    $this->removeAllTags();
+
+    $this->tag($tags);
+  }
+
   private function removeAllTags()
   {
     $ths->removeTags($this->tags);
