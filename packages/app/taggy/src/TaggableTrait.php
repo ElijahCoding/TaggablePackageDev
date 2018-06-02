@@ -18,6 +18,30 @@ trait TaggableTrait
     $this->addTags($this->getWorkableTags($tags));
   }
 
+  public function untag($tags = null)
+  {
+    if ($tags === null) {
+      $this->removeAllTags();
+      return;
+    }
+
+    $this->removeTags($this->getWorkableTags($tags));
+  }
+
+  private function removeAllTags()
+  {
+    $ths->removeTags($this->tags);
+  }
+
+  private function removeTags(Collection $tags)
+  {
+    $this->tags()->detach($tags);
+
+    foreach ($tags->where('count', '>', 0) as $tag) {
+      $tag->decrement('count');
+    }
+  }
+
   private function addTags(Collection $tags)
   {
     $sync = $this->tags()->syncWithoutDetach($tags->pluck('id')->toArray());
