@@ -16,12 +16,15 @@ trait TaggableTrait
   public function tag($tags)
   {
     $this->addTags($this->getWorkableTags($tags));
-
   }
 
   private function addTags(Collection $tags)
   {
     $sync = $this->tags()->syncWithoutDetach($tags->pluck('id')->toArray());
+
+    foreach (array_get($sync, 'attached') as $attachedId) {
+      $tags->where('id', $attachedId)->first()->increment('count');
+    }
   }
 
   private function getWorkableTags($tags)
