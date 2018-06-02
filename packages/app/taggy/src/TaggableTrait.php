@@ -15,7 +15,13 @@ trait TaggableTrait
 
   public function tag($tags)
   {
-    dd($this->getWorkableTags($tags));
+    $this->addTags($this->getWorkableTags($tags));
+
+  }
+
+  private function addTags(Collection $tags)
+  {
+    $sync = $this->tags()->syncWithoutDetach($tags->pluck('id')->toArray());
   }
 
   private function getWorkableTags($tags)
